@@ -1,4 +1,4 @@
-# 2 Function Overview (v2.6)
+# 2 Function Overview (v2.7)
 
 List of all functions of the SortingTool and the buttons that call them. General rules are defined in the base specification (`1 - Base.md`).
 
@@ -31,7 +31,8 @@ Language rule: this document, the code and all descriptions in the code are in E
 | 2.5 | `MoveToResult` | `Code/Database/MoveToResult.ps1` | `InputAndResult`, moves only from Input to Result | v0.3, no open questions |
 | 2.6 | `DeterminePlaceByGps` | `Code/Images/DeterminePlaceByGps.ps1` | `Input`, renames day folders | v0.2, no open questions |
 | 2.7 | `DeterminePlaceByClaude` | `Code/Images/DeterminePlaceByClaude.ps1` | `Input`, renames day folders | v0.2, no open questions |
-| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` or to `ToDelete/<Category>` (e.g. Memes) | v0.6, 6 open questions; pre-assessment by file name; one spec per category `2.8.<n> - <Category>.md` |
+| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `Input`, pre-sorts images into category folders in Input; one spec per category `2.8.<n> - <Category>.md` | v0.7, 2 open questions |
+| 2.9 | `MoveCategoryFolders` | `Code/Images/MoveCategoryFolders.ps1` | `InputAndResult`, moves category folders from Input to `Result` or `ToDelete` | v0.1, 1 open question |
 | – | `Undo` | part of `Common.ps1` | same as the action being undone | done, base section 9 |
 
 ## Fixed buttons (bottom of the main window)
@@ -52,6 +53,7 @@ Language rule: this document, the code and all descriptions in the code are in E
 | Bilder | `Images` | Ort bestimmen (OpenStreetMap) | `DeterminePlaceByGps` |
 | Bilder | `Images` | Ort bestimmen (Claude) | `DeterminePlaceByClaude` |
 | Bilder | `Images` | Bilder kategorisieren (Claude) | `CategorizeImages` |
+| Bilder | `Images` | Kategorien verschieben | `MoveCategoryFolders` |
 | Dokumente | `Documents` | none yet | |
 | Songs | `Songs` | none yet | |
 
