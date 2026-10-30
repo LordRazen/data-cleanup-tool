@@ -31,7 +31,7 @@ Language rule: this document, the code and all descriptions in the code are in E
 | 2.5 | `MoveToResult` | `Code/Database/MoveToResult.ps1` | `InputAndResult`, moves only from Input to Result | v0.3, no open questions |
 | 2.6 | `DeterminePlaceByGps` | `Code/Images/DeterminePlaceByGps.ps1` | `Input`, renames day folders | v0.2, no open questions |
 | 2.7 | `DeterminePlaceByClaude` | `Code/Images/DeterminePlaceByClaude.ps1` | `Input`, renames day folders | v0.2, no open questions |
-| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` | v0.2, 4 open questions; one spec per category `2.8.<n> - <Category>.md` |
+| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` or to a sort-out main folder (e.g. `Memes`) | v0.3, 4 open questions; one spec per category `2.8.<n> - <Category>.md` |
 | – | `Undo` | part of `Common.ps1` | same as the action being undone | done, base section 9 |
 
 ## Fixed buttons (bottom of the main window)
