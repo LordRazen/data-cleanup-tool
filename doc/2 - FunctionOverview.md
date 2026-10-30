@@ -1,4 +1,4 @@
-# 2 Function Overview (v2.3)
+# 2 Function Overview (v2.4)
 
 List of all functions of the SortingTool and the buttons that call them. General rules are defined in the base specification (`1 - Base.md`).
 
@@ -25,13 +25,13 @@ Language rule: this document, the code and all descriptions in the code are in E
 | No. | Internal name | Script | Scope | Status |
 |---|---|---|---|---|
 | 2.1 | `InitializeFolder` | `Code/Database/InitializeFolder.ps1` | only the folder passed with `-Folder` (`Input` or `Result`), database only | v0.13, no open questions |
-| 2.2 | `FindDuplicates` | `Code/Database/FindDuplicates.ps1` | `InputAndResult`, moves only from Input to Doublets | v0.7, no open questions |
+| 2.2 | `FindDuplicates` | `Code/Database/FindDuplicates.ps1` | `InputAndResult`, moves only from Input to `ToDelete/Doublets` | v0.8, no open questions |
 | 2.3 | `GroupByCaptureDate` | `Code/Images/GroupByCaptureDate.ps1` | `Input` | v0.7, no open questions |
-| 2.4 | `RemoveStaleEntries` | `Code/Database/RemoveStaleEntries.ps1` | all entries (Input, Result, Doublets), database only | v0.2, no open questions |
+| 2.4 | `RemoveStaleEntries` | `Code/Database/RemoveStaleEntries.ps1` | all entries (Input, Result, ToDelete), database only | v0.3, no open questions |
 | 2.5 | `MoveToResult` | `Code/Database/MoveToResult.ps1` | `InputAndResult`, moves only from Input to Result | v0.3, no open questions |
 | 2.6 | `DeterminePlaceByGps` | `Code/Images/DeterminePlaceByGps.ps1` | `Input`, renames day folders | v0.2, no open questions |
 | 2.7 | `DeterminePlaceByClaude` | `Code/Images/DeterminePlaceByClaude.ps1` | `Input`, renames day folders | v0.2, no open questions |
-| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` or to a sort-out main folder (e.g. `Memes`) | v0.3, 4 open questions; one spec per category `2.8.<n> - <Category>.md` |
+| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` or to `ToDelete/<Category>` (e.g. Memes) | v0.4, 4 open questions; one spec per category `2.8.<n> - <Category>.md` |
 | – | `Undo` | part of `Common.ps1` | same as the action being undone | done, base section 9 |
 
 ## Fixed buttons (bottom of the main window)
