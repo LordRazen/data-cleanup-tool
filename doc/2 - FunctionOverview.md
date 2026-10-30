@@ -1,4 +1,4 @@
-# 2 Function Overview (v2.2)
+# 2 Function Overview (v2.3)
 
 List of all functions of the SortingTool and the buttons that call them. General rules are defined in the base specification (`1 - Base.md`).
 
@@ -31,6 +31,7 @@ Language rule: this document, the code and all descriptions in the code are in E
 | 2.5 | `MoveToResult` | `Code/Database/MoveToResult.ps1` | `InputAndResult`, moves only from Input to Result | v0.3, no open questions |
 | 2.6 | `DeterminePlaceByGps` | `Code/Images/DeterminePlaceByGps.ps1` | `Input`, renames day folders | v0.2, no open questions |
 | 2.7 | `DeterminePlaceByClaude` | `Code/Images/DeterminePlaceByClaude.ps1` | `Input`, renames day folders | v0.2, no open questions |
+| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` | v0.1, 6 open questions |
 | – | `Undo` | part of `Common.ps1` | same as the action being undone | done, base section 9 |
 
 ## Fixed buttons (bottom of the main window)
@@ -50,6 +51,7 @@ Language rule: this document, the code and all descriptions in the code are in E
 | Bilder | `Images` | Nach Aufnahmedatum gruppieren | `GroupByCaptureDate` |
 | Bilder | `Images` | Ort bestimmen (OpenStreetMap) | `DeterminePlaceByGps` |
 | Bilder | `Images` | Ort bestimmen (Claude) | `DeterminePlaceByClaude` |
+| Bilder | `Images` | Bilder kategorisieren (Claude) | `CategorizeImages` |
 | Dokumente | `Documents` | none yet | |
 | Songs | `Songs` | none yet | |
 
