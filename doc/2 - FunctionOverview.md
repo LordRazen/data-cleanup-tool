@@ -31,7 +31,7 @@ Language rule: this document, the code and all descriptions in the code are in E
 | 2.5 | `MoveToResult` | `Code/Database/MoveToResult.ps1` | `InputAndResult`, moves only from Input to Result | v0.3, no open questions |
 | 2.6 | `DeterminePlaceByGps` | `Code/Images/DeterminePlaceByGps.ps1` | `Input`, renames day folders | v0.2, no open questions |
 | 2.7 | `DeterminePlaceByClaude` | `Code/Images/DeterminePlaceByClaude.ps1` | `Input`, renames day folders | v0.2, no open questions |
-| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` | v0.1, 6 open questions |
+| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `InputAndResult`, moves loose images from Input to `Result/<Category>` | v0.2, 4 open questions; one spec per category `2.8.<n> - <Category>.md` |
 | – | `Undo` | part of `Common.ps1` | same as the action being undone | done, base section 9 |
 
 ## Fixed buttons (bottom of the main window)
@@ -57,6 +57,7 @@ Language rule: this document, the code and all descriptions in the code are in E
 
 ## Rules for new functions
 - One file per function, numbered `2.<n> - <InternalName>.md`.
+- Parts of a function (e.g. the categories of `CategorizeImages`) get their own files `2.<n>.<m> - <Name>.md`, in the repository in a folder named like the function file.
 - Each function explicitly states whether it works in Input only (`Input`) or in Input and Result (`InputAndResult`).
 - Every new function is added to the table "Functions", every button to the matching button table.
 
