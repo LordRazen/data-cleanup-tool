@@ -1,4 +1,4 @@
-# 2 Function Overview (v2.2)
+# 2 Function Overview (v2.7)
 
 List of all functions of the SortingTool and the buttons that call them. General rules are defined in the base specification (`1 - Base.md`).
 
@@ -25,12 +25,14 @@ Language rule: this document, the code and all descriptions in the code are in E
 | No. | Internal name | Script | Scope | Status |
 |---|---|---|---|---|
 | 2.1 | `InitializeFolder` | `Code/Database/InitializeFolder.ps1` | only the folder passed with `-Folder` (`Input` or `Result`), database only | v0.13, no open questions |
-| 2.2 | `FindDuplicates` | `Code/Database/FindDuplicates.ps1` | `InputAndResult`, moves only from Input to Doublets | v0.7, no open questions |
+| 2.2 | `FindDuplicates` | `Code/Database/FindDuplicates.ps1` | `InputAndResult`, moves only from Input to `ToDelete/Doublets` | v0.8, no open questions |
 | 2.3 | `GroupByCaptureDate` | `Code/Images/GroupByCaptureDate.ps1` | `Input` | v0.7, no open questions |
-| 2.4 | `RemoveStaleEntries` | `Code/Database/RemoveStaleEntries.ps1` | all entries (Input, Result, Doublets), database only | v0.2, no open questions |
+| 2.4 | `RemoveStaleEntries` | `Code/Database/RemoveStaleEntries.ps1` | all entries (Input, Result, ToDelete), database only | v0.3, no open questions |
 | 2.5 | `MoveToResult` | `Code/Database/MoveToResult.ps1` | `InputAndResult`, moves only from Input to Result | v0.3, no open questions |
 | 2.6 | `DeterminePlaceByGps` | `Code/Images/DeterminePlaceByGps.ps1` | `Input`, renames day folders | v0.2, no open questions |
 | 2.7 | `DeterminePlaceByClaude` | `Code/Images/DeterminePlaceByClaude.ps1` | `Input`, renames day folders | v0.2, no open questions |
+| 2.8 | `CategorizeImages` | `Code/Images/CategorizeImages.ps1` | `Input`, pre-sorts images into category folders in Input; one spec per category `2.8.<n> - <Category>.md` | v0.7, 2 open questions |
+| 2.9 | `MoveCategoryFolders` | `Code/Images/MoveCategoryFolders.ps1` | `InputAndResult`, moves category folders from Input to `Result` or `ToDelete` | v0.1, 1 open question |
 | – | `Undo` | part of `Common.ps1` | same as the action being undone | done, base section 9 |
 
 ## Fixed buttons (bottom of the main window)
@@ -50,11 +52,14 @@ Language rule: this document, the code and all descriptions in the code are in E
 | Bilder | `Images` | Nach Aufnahmedatum gruppieren | `GroupByCaptureDate` |
 | Bilder | `Images` | Ort bestimmen (OpenStreetMap) | `DeterminePlaceByGps` |
 | Bilder | `Images` | Ort bestimmen (Claude) | `DeterminePlaceByClaude` |
+| Bilder | `Images` | Bilder kategorisieren (Claude) | `CategorizeImages` |
+| Bilder | `Images` | Kategorien verschieben | `MoveCategoryFolders` |
 | Dokumente | `Documents` | none yet | |
 | Songs | `Songs` | none yet | |
 
 ## Rules for new functions
 - One file per function, numbered `2.<n> - <InternalName>.md`.
+- Parts of a function (e.g. the categories of `CategorizeImages`) get their own files `2.<n>.<m> - <Name>.md`, in the repository in a folder named like the function file.
 - Each function explicitly states whether it works in Input only (`Input`) or in Input and Result (`InputAndResult`).
 - Every new function is added to the table "Functions", every button to the matching button table.
 

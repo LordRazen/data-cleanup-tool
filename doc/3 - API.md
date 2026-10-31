@@ -1,4 +1,4 @@
-# 3 API (v0.5)
+# 3 API (v0.6)
 
 External services that functions can call, e.g. Claude for image or text analysis. Kept separate from the base (`1 - Base.md`) and from the functions (`2 - FunctionOverview.md`) (confirmed).
 
@@ -8,7 +8,7 @@ Language rule as in `2 - FunctionOverview.md`: document and code in English, onl
 - **Never pay per use** (confirmed). No service is used in a way that is billed by consumption. For Claude this means: no Anthropic API key, only the existing Claude subscription via the locally installed Claude Code (see `3.1 - ClaudeEndpoint.md`).
 - **Free services first** (confirmed): a function uses free endpoints first (e.g. Nominatim for places) and only falls back to Claude when the free ones cannot answer.
 - An endpoint is a wrapper with one clear interface. Functions never call a service directly, only through its endpoint.
-- An endpoint never touches files in `Input`, `Result` or `Doublets`. It only returns data. Moving stays with the function and its preview (base rule).
+- An endpoint never touches files in `Input`, `Result` or `ToDelete`. It only returns data. Moving stays with the function and its preview (base rule).
 - Every endpoint can be unavailable (not installed, not logged in, limit reached, offline). Functions must handle that without breaking: they skip the affected files and report it.
 - Data sent to an external service leaves the computer. Each function that uses an endpoint says in its specification what it sends.
 
