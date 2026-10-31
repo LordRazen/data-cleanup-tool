@@ -300,3 +300,31 @@ function Format-ApiCallExtra {
     if ($Summary) { $text += " | $Summary" }
     return $text
 }
+
+function New-ClaudeImageCopies {
+    # Smaller JPEG copies without metadata for a Claude call (2.8 section 5 step 3), written to
+    # System/Temp/Resize. Returns the absolute paths; images that cannot be read are left out.
+    param([Parameter(Mandatory)][string[]]$RelPaths)
+    $folder = Join-Path $global:ST.Temp 'Resize'
+    if (-not [System.IO.Directory]::Exists($folder)) { [void][System.IO.Directory]::CreateDirectory($folder) }
+    $maxEdge = [int]$global:ST.Settings.categories.maxImageEdge
+    if ($maxEdge -lt 200) { $maxEdge = 1568 }
+    $result = New-Object System.Collections.Generic.List[string]
+    foreach ($rel in $RelPaths) {
+        $dest = Join-Path $folder ('st_resize_{0}.jpg' -f ([guid]::NewGuid().ToString('N')))
+        if (Save-ResizedImageCopy -Source (ConvertTo-AbsPath $rel) -Destination $dest -MaxEdge $maxEdge) { $result.Add($dest) }
+    }
+    return , $result
+}
+
+function Remove-ClaudeImageCopies {
+    # Removes the temporary copies made by New-ClaudeImageCopies (files of the tool, not user files).
+    param($Paths)
+    $folder = Join-Path $global:ST.Temp 'Resize'
+    foreach ($p in $Paths) {
+        if ($p -and [System.IO.Path]::GetFileName($p) -like 'st_resize_*' -and
+            [string]::Equals([System.IO.Path]::GetDirectoryName($p), $folder, [System.StringComparison]::OrdinalIgnoreCase)) {
+            try { [System.IO.File]::Delete($p) } catch { }
+        }
+    }
+}

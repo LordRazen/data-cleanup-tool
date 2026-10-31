@@ -348,3 +348,27 @@ function Add-PlanPreStep {
     param([Parameter(Mandatory)]$Plan, [Parameter(Mandatory)][string]$Type, [string]$Old = '', [string]$New = '', [string]$Extra = '')
     $Plan.PreSteps.Add([pscustomobject]@{ Type = $Type; Old = $Old; New = $New; Extra = $Extra })
 }
+
+function Set-SuffixRenameTarget {
+    # For folder renames with an editable name part (2.6, 2.7): the part after EditPrefix was
+    # edited in the preview; the target follows, with "_2" if the name is taken (base section 2).
+    param([Parameter(Mandatory)]$Plan, [Parameter(Mandatory)]$Item)
+    $value = Remove-InvalidNameChars ([string]$Item.EditValue)
+    if (-not $value) { $value = [string]$Item.Data.DefaultSuffix }
+    $Item.EditValue = $value
+    $parent = Get-RelParent $Item.Source
+    $reserved = Get-PlanReservedTargets -Plan $Plan -Except $Item
+    $Item.Target = Get-UniqueRelPath -RelPath (Join-RelPath $parent ($Item.EditPrefix + $value)) -Reserved $reserved -IsFolder
+}
+
+function Get-InputFolderGroups {
+    # Folders directly in Input, split into day folders without place ("2024-07-13"), day folders
+    # with place ("2024-07-13 - Tokio") and other folders (2.3 section 3, 2.6 section 3).
+    $result = @{ Day = @(); DayWithPlace = @(); Other = @() }
+    foreach ($d in ((New-Object System.IO.DirectoryInfo (ConvertTo-AbsPath 'Input')).GetDirectories() | Sort-Object Name)) {
+        if (Test-DayFolderName $d.Name) { $result.Day += $d.Name }
+        elseif (Test-DayFolderName $d.Name -AllowPlace) { $result.DayWithPlace += $d.Name }
+        else { $result.Other += $d.Name }
+    }
+    return $result
+}
