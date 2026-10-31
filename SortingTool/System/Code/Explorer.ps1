@@ -218,8 +218,13 @@ function New-ExplorerPane {
             param($sender, $e)
             $e.CancelEdit = $true
             if ($null -eq $e.Label) { return }
-            $item = $this.Items[$e.Item]
-            Invoke-ExplorerRename -Pane $this.Tag -Item $item -NewName $e.Label
+            # The rename runs after the edit has ended, so the list can be refreshed safely.
+            $global:ST.PendingRename = @{ Pane = $this.Tag; Item = $this.Items[$e.Item]; Name = $e.Label }
+            $this.BeginInvoke([System.Action] {
+                    $r = $global:ST.PendingRename
+                    $global:ST.PendingRename = $null
+                    if ($r) { Invoke-ExplorerRename -Pane $r.Pane -Item $r.Item -NewName $r.Name }
+                }) | Out-Null
         })
     $list.Add_ItemDrag({
             param($sender, $e)
@@ -247,7 +252,7 @@ function New-ExplorerPane {
             $target = Get-ExplorerDropTarget -Pane $p -ScreenX $e.X -ScreenY $e.Y
             if (-not $target) { return }
             $paths = [string[]]$e.Data.GetData('SortingToolPaths')
-            Invoke-ExplorerMove -Paths $paths -TargetFolder $target
+            Request-ExplorerMove -Paths $paths -TargetFolder $target
         })
 
     $timer = New-Object System.Windows.Forms.Timer
@@ -310,7 +315,7 @@ function Update-ExplorerPathBar {
         $link.Add_DragDrop({
                 param($sender, $e)
                 $paths = [string[]]$e.Data.GetData('SortingToolPaths')
-                Invoke-ExplorerMove -Paths $paths -TargetFolder $this.Tag.Rel
+                Request-ExplorerMove -Paths $paths -TargetFolder $this.Tag.Rel
             })
         $bar.Controls.Add($link)
     }
@@ -474,6 +479,17 @@ function Invoke-ExplorerRename {
     }
     [void](Save-ActionLog $log)
     Update-Explorer
+}
+
+function Request-ExplorerMove {
+    # Runs the move after the drag and drop operation has ended (the lists are refreshed afterwards).
+    param([string[]]$Paths, [string]$TargetFolder)
+    $global:ST.PendingMove = @{ Paths = $Paths; Target = $TargetFolder }
+    $global:ST.MainForm.BeginInvoke([System.Action] {
+            $m = $global:ST.PendingMove
+            $global:ST.PendingMove = $null
+            if ($m) { Invoke-ExplorerMove -Paths $m.Paths -TargetFolder $m.Target }
+        }) | Out-Null
 }
 
 function Invoke-ExplorerMove {

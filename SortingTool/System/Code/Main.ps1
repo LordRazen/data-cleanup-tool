@@ -83,7 +83,8 @@ function Invoke-PlanWithPreview {
         Show-InfoMessage $text $Plan.Title
         if ($Plan.OnExecuted) {
             $log = New-ActionLog -Group $Plan.Group -Script $Plan.Script
-            & $Plan.OnExecuted $Plan $log
+            $null = & $Plan.OnExecuted $Plan $log
+            if ($log.Steps.Count -gt 0 -or $log.Extra.Count -gt 0) { [void](Save-ActionLog $log) }
         }
         return $true
     }

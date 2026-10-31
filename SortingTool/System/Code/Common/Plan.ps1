@@ -323,7 +323,7 @@ function Invoke-Plan {
             if ($item.Locked -and $item.Conflict) { $reason = $item.Conflict }
             Add-LogStep -Log $log -Type 'REJECTED' -Old $item.Source -New $item.Target -Extra $reason
         }
-        if ($Plan.OnExecuted) { & $Plan.OnExecuted $Plan $log }
+        if ($Plan.OnExecuted) { $null = & $Plan.OnExecuted $Plan $log }
     }
     finally {
         try { Complete-DbTransaction } catch { }

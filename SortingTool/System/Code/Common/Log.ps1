@@ -113,7 +113,7 @@ function Get-UndoableLogs {
     # Initialization logs are not offered (2.1 section 6).
     $result = New-Object System.Collections.Generic.List[object]
     if (-not (Test-Path -LiteralPath $global:ST.Logs)) { return , $result }
-    $files = Get-ChildItem -LiteralPath $global:ST.Logs -Filter '*.log' | Sort-Object Name -Descending
+    $files = Get-ChildItem -LiteralPath $global:ST.Logs -Filter '*.log' | Sort-Object LastWriteTime, Name -Descending
     foreach ($file in $files) {
         if ($file.Name -match ' - Database - Initialize(Input|Result)') { continue }
         try {
