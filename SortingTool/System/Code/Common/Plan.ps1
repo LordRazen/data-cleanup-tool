@@ -329,3 +329,13 @@ function Invoke-Plan {
     [void](Save-ActionLog $log)
     return $log
 }
+
+function New-FunctionResult {
+    # Result of a function script that does not return a plan:
+    #   Done      the function finished (e.g. InitializeFolder); Message = summary to show
+    #   Message   nothing to do, show Message, the chain continues
+    #   Cancelled the user cancelled, the chain stops
+    #   Failed    the function failed as a whole, Message = reason, the chain stops
+    param([Parameter(Mandatory)][ValidateSet('Done', 'Message', 'Cancelled', 'Failed')][string]$Kind, [string]$Message = '')
+    return @{ Kind = $Kind; Message = $Message }
+}
