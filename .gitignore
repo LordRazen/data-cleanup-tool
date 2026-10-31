@@ -1,0 +1,9 @@
+# Runtime data of the tool (created on first start)
+SortingTool/Input/
+SortingTool/Result/
+SortingTool/ToDelete/
+SortingTool/System/Logs/*
+!SortingTool/System/Logs/.gitkeep
+SortingTool/System/Database/*
+!SortingTool/System/Database/.gitkeep
+SortingTool/System/Temp/

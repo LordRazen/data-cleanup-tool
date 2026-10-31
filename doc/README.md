@@ -8,3 +8,8 @@ Copied from the project folder `spezifikation-neu` on 2026-10-29, last synced on
 - `2 - Functions/2.<n> - <Function>/2.<n>.<m> - <Part>.md`: parts of a function, e.g. the categories of 2.8
 - `3 - API.md`: overview of external services
 - `3 - API/3.<n> - <Endpoint>.md`: one file per endpoint
+
+Build notes (not part of the specification):
+
+- `BuildAssumptions.md`: assumptions made while building the tool where the specification left room
+- `OpenQuestions.md`: open questions and critique points collected during the build

@@ -1,0 +1,43 @@
+{
+  "similarityThreshold": 5,
+  "thumbnailSize": 128,
+  "explorerViewInput": "List",
+  "explorerViewResult": "Folder",
+  "imageExtensions": [ ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".heic", ".heif", ".webp", ".tif", ".tiff", ".cr2", ".cr3", ".nef", ".arw", ".orf", ".rw2", ".dng" ],
+  "videoExtensions": [ ".mp4", ".mov", ".m4v", ".avi", ".mkv", ".3gp", ".mts", ".m2ts", ".wmv" ],
+  "minImagesPerDay": 5,
+  "resultTargetDepth": 2,
+  "places": {
+    "maxLookupsPerFolder": 10,
+    "secondPlaceShare": 0.3,
+    "maxImagesPerFolder": 5,
+    "minConfidence": 0.6
+  },
+  "categories": {
+    "maxImageEdge": 1568,
+    "minCategoryConfidence": 0.7,
+    "maxKeywordLength": 80,
+    "genericNamePatterns": [ "IMG_[0-9]*", "IMG-[0-9]*", "IMG[0-9]*", "DSC[0-9]*", "DSC_[0-9]*", "DSCN[0-9]*", "DSCF[0-9]*", "PXL_[0-9]*", "MVIMG_[0-9]*", "PANO_[0-9]*", "VID_[0-9]*", "[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_[0-9]*", "*-WA[0-9]*", "WhatsApp Image [0-9]*" ]
+  },
+  "api": {
+    "claude": {
+      "enabled": true,
+      "executable": "claude",
+      "model": "",
+      "timeoutSeconds": 120,
+      "maxCallsPerRun": 100,
+      "workingFolder": "System/Temp/Claude",
+      "limitRetryMinutes": 15
+    },
+    "nominatim": {
+      "enabled": true,
+      "baseUrl": "https://nominatim.openstreetmap.org",
+      "zoom": 10,
+      "language": "de",
+      "coordinatePrecision": 3,
+      "minSecondsBetweenRequests": 1.1,
+      "maxRequestsPerRun": 200,
+      "timeoutSeconds": 20
+    }
+  }
+}

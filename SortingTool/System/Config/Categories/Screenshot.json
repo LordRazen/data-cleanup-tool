@@ -1,0 +1,11 @@
+{
+  "name": "Screenshot",
+  "label": "Screenshots",
+  "folder": "Screenshots",
+  "target": "Result",
+  "keywordPrefix": "CaptureDate",
+  "subfolderByYear": true,
+  "namePatterns": ["screenshot", "bildschirmfoto", "screen shot", "bildschirmaufnahme", "capture", "snip", "snipping", "ausschneiden", "scr_"],
+  "definition": "The image is a screenshot of a phone, tablet or computer screen, e.g. a chat, a website, an app, a map, a ticket, settings or an error message. Typical signs: status bar with time and battery, app or browser frame, buttons, menus, on-screen keyboard. If the screenshot shows a recipe or a meme/joke, choose that more specific category instead. A camera photo of a screen is NOT a screenshot.",
+  "keywordRule": "A short German description of the content in 2 to 5 words, e.g. 'Chat mit Anna Geburtstag', 'Bahnticket Berlin München', 'Fehlermeldung Windows Update'. No personal data such as phone numbers, addresses or passwords in the keyword."
+}
