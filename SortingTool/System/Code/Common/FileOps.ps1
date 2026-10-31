@@ -91,7 +91,8 @@ function New-FolderTracked {
     # Creates a folder and every missing parent; each created level is logged as FOLDER_CREATED,
     # so undo can remove it again if it becomes empty (base section 9).
     param([Parameter(Mandatory)][string]$Path, [Parameter(Mandatory)]$Log)
-    $levels = @(Get-RelAncestors $Path) + @($Path)
+    $ancestors = Get-RelAncestors $Path
+    $levels = @($ancestors) + @($Path)
     foreach ($level in $levels) {
         if ((Get-RelDepth $level) -lt 2) { continue }   # never create the main folders this way
         $abs = ConvertTo-AbsPath $level
