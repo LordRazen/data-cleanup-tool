@@ -44,6 +44,7 @@ function New-Plan {
         ChoiceLabel    = 'Auswahl'
         AutoUnchecked  = (New-PathSet)
         LogExtra       = [ordered]@{}
+        PreSteps       = (New-Object System.Collections.Generic.List[object])   # log lines written first (API_CALL, PREASSESSMENT)
     }
 }
 
@@ -221,6 +222,7 @@ function Invoke-Plan {
     Update-PlanDerived $Plan
     $log = New-ActionLog -Group $Plan.Group -Script $Plan.Script
     foreach ($k in $Plan.LogExtra.Keys) { $log.Extra[$k] = $Plan.LogExtra[$k] }
+    foreach ($step in $Plan.PreSteps) { Add-LogStep -Log $log -Type $step.Type -Old $step.Old -New $step.New -Extra $step.Extra }
     $finalTargets = @{}
     $opCount = 0
     Start-DbTransaction
@@ -338,4 +340,11 @@ function New-FunctionResult {
     #   Failed    the function failed as a whole, Message = reason, the chain stops
     param([Parameter(Mandatory)][ValidateSet('Done', 'Message', 'Cancelled', 'Failed')][string]$Kind, [string]$Message = '')
     return @{ Kind = $Kind; Message = $Message }
+}
+
+function Add-PlanPreStep {
+    # A log line that is written at the start of the log when the plan is executed
+    # (e.g. API_CALL lines of 3 - API.md section 4, PREASSESSMENT lines of 2.8).
+    param([Parameter(Mandatory)]$Plan, [Parameter(Mandatory)][string]$Type, [string]$Old = '', [string]$New = '', [string]$Extra = '')
+    $Plan.PreSteps.Add([pscustomobject]@{ Type = $Type; Old = $Old; New = $New; Extra = $Extra })
 }
