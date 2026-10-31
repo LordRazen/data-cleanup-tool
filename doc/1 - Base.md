@@ -1,4 +1,4 @@
-# Basisspezifikation Sortierwerkzeug (v0.23)
+# Basisspezifikation Sortierwerkzeug (v0.24)
 
 ## 1. Zweck
 - Eine einfache Windows-Oberfläche, über die du Aufräumarbeiten an deiner Sammlung per Knopfdruck startest.
@@ -22,7 +22,8 @@
 
 ## 4. Ordnerstruktur der Anwendung
 - Hauptordner des Werkzeugs: `SortingTool` (bestätigt).
-- Ordnernamen ohne Nummern: `Input`, `Result`, `System`.
+- Ordnernamen ohne Nummern: `Input`, `Result`, `ToDelete`, `System`.
+- `ToDelete` sammelt alles, was du später selbst löschen willst, je Art in einem Unterordner, z. B. `ToDelete/Doublets` (2.2) und `ToDelete/Memes` (2.8.2) (Razen, 2026-10-30). Das Werkzeug löscht auch dort nie etwas.
 - Werkzeug, Input und Result liegen direkt nebeneinander auf der externen Platte.
 - Das Programm findet die Ordner über seinen eigenen Speicherort. Ein anderer Laufwerksbuchstabe stört also nicht.
 ```
@@ -30,6 +31,7 @@ SortingTool/
 ├─ Start.cmd
 ├─ Input/      Eingang: hier legst du Dateien und Ordner zur Bearbeitung ab
 ├─ Result/     Ergebnis: hierhin verschieben die Funktionen die bearbeiteten Dateien
+├─ ToDelete/   Aussortiertes zum späteren Löschen (Doublets, Memes, …)
 └─ System/
    ├─ Code/
    │  ├─ Main.ps1           Hauptprogramm
@@ -185,7 +187,7 @@ SortingTool/
 ## 11. Datei-Explorer
 ### Aufbau (bestätigt)
 - Liegt im Hauptfenster zwischen der Leiste mit den Gruppen und der festen Button-Reihe und funktioniert ähnlich wie der Windows-Explorer.
-- Zwei **getrennte Bereiche nebeneinander**: **links `Input`**, **rechts `Result`**. Jeder Bereich zeigt nur seinen eigenen Ordner. `System` und der Doubletten-Ordner werden nicht angezeigt (bestätigt).
+- Zwei **getrennte Bereiche nebeneinander**: **links `Input`**, **rechts `Result`**. Jeder Bereich zeigt nur seinen eigenen Ordner. `System` und `ToDelete` werden nicht angezeigt (bestätigt).
 - Jeder Bereich hat oben eine Pfadzeile (z. B. `Result › Images › 2024-07-13 - Tokio`) mit einem Button **Eine Ebene hoch**. Doppelklick auf einen Ordner öffnet ihn. Beide Bereiche navigieren unabhängig voneinander.
 - Jeder Bereich hat **seinen eigenen Umschalter** mit zwei Buttons für die Ansicht (bestätigt), der aktive ist hervorgehoben. So kann z. B. links die Liste und rechts die Ordneransicht offen sein:
   - **Liste:** flache Liste aller Dateien im aktuellen Ordner **und allen Unterordnern**, ohne Ordnerebenen. Spalten: Name, Ordner (relativer Pfad), Größe, Änderungsdatum. Klick auf eine Spaltenüberschrift sortiert danach.
@@ -229,7 +231,7 @@ SortingTool/
 - **Löschen** gibt es im Explorer nicht (Grundregel). Die Entf-Taste tut nichts.
 
 ## 12. Hinweise für die Funktionsspezifikationen (nicht hier geregelt)
-- Der Explorer zeigt nur `Input` und `Result`, der Doubletten-Ordner aus 2.2 ist dort bewusst nicht sichtbar (bestätigt).
+- Der Explorer zeigt nur `Input` und `Result`, `ToDelete` (Doubletten aus 2.2, Memes aus 2.8.2) ist dort bewusst nicht sichtbar (bestätigt).
 - Funktionen, die Ordner umbenennen oder Dateien verschieben (z. B. 2.5, 2.6, 2.7), sollten dieselben zentralen Hilfsfunktionen in `Common.ps1` nutzen wie der Explorer, damit die Datenbank immer gleich angepasst wird.
 
 ## 13. Offene Fragen
