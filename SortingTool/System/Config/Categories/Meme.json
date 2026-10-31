@@ -1,0 +1,10 @@
+{
+  "name": "Meme",
+  "label": "Memes",
+  "folder": "Memes",
+  "target": "ToDelete",
+  "rename": false,
+  "minConfidence": 0.85,
+  "namePatterns": ["meme", "9gag", "funny", "lustig", "witz", "lol", "haha", "spruch", "sprueche", "reddit", "imgflip", "giphy"],
+  "definition": "The image is a meme: a funny picture with a saying or caption, an image macro, a joke picture, a reaction image, a funny comic or a screenshot of a joke as shared in chats or social media. Personal photos of people, places or events are NOT memes, even if funny. Screenshots with useful information (recipes, documents, instructions) are NOT memes. If unsure, it is NOT a meme."
+}

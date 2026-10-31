@@ -1,0 +1,77 @@
+{
+  "groups": [
+    {
+      "name": "Images",
+      "label": "Bilder",
+      "buttons": [
+        {
+          "label": "Nach Aufnahmedatum gruppieren",
+          "functions": [ { "name": "GroupByCaptureDate" } ],
+          "scope": "Input",
+          "description": "Legt für jeden Aufnahmetag einen Ordner an und verschiebt die Bilder dieses Tages hinein"
+        },
+        {
+          "label": "Ort bestimmen (OpenStreetMap)",
+          "functions": [ { "name": "DeterminePlaceByGps" } ],
+          "scope": "Input",
+          "description": "Bestimmt aus den GPS-Daten der Fotos den Ort jedes Tagesordners und ergänzt ihn im Ordnernamen"
+        },
+        {
+          "label": "Ort bestimmen (Claude)",
+          "functions": [ { "name": "DeterminePlaceByClaude" } ],
+          "scope": "Input",
+          "requires": [ "Claude" ],
+          "description": "Lässt Claude anhand einiger Fotos den Ort von Tagesordnern ohne Ort schätzen"
+        },
+        {
+          "label": "Bilder kategorisieren (Claude)",
+          "functions": [ { "name": "CategorizeImages" } ],
+          "scope": "Input",
+          "description": "Lässt Claude Bilder in Input grob einordnen (z. B. Rezepte, Screenshots), benennt erkannte Bilder mit einem Schlagwort um und sortiert sie in Input in Kategorieordner vor"
+        },
+        {
+          "label": "Kategorien verschieben",
+          "functions": [ { "name": "MoveCategoryFolders" } ],
+          "scope": "InputAndResult",
+          "description": "Verschiebt die vorsortierten Kategorieordner aus Input an ihr Ziel: Rezepte, Screenshots und Sonstiges nach Result, Memes nach ToDelete"
+        }
+      ]
+    },
+    { "name": "Documents", "label": "Dokumente", "buttons": [] },
+    { "name": "Songs", "label": "Songs", "buttons": [] }
+  ],
+  "fixedButtons": [
+    {
+      "label": "Result initialisieren",
+      "functions": [ { "name": "InitializeFolder", "arguments": { "Folder": "Result" } } ],
+      "scope": "Result",
+      "description": "Erfasst alle Dateien in Result mit ihren Hashes in der Datenbank"
+    },
+    {
+      "label": "Input initialisieren",
+      "functions": [
+        { "name": "InitializeFolder", "arguments": { "Folder": "Input" } },
+        { "name": "FindDuplicates" }
+      ],
+      "scope": "InputAndResult",
+      "description": "Erfasst neue Dateien in Input und sortiert Doubletten aus"
+    },
+    {
+      "label": "Datenbank bereinigen",
+      "functions": [ { "name": "RemoveStaleEntries" } ],
+      "scope": "InputAndResult",
+      "description": "Entfernt Datenbankeinträge zu Dateien, die es nicht mehr gibt"
+    },
+    {
+      "label": "Nach Result verschieben",
+      "functions": [ { "name": "MoveToResult" } ],
+      "scope": "InputAndResult",
+      "description": "Verschiebt ausgewählte Dateien oder Ordner aus Input in einen Ordner in Result"
+    },
+    {
+      "label": "Aktion rückgängig machen",
+      "special": "Undo",
+      "description": "Nimmt eine frühere Aktion anhand ihrer Logdatei ganz oder teilweise zurück"
+    }
+  ]
+}
