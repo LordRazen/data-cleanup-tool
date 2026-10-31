@@ -21,7 +21,7 @@ $global:ST.PreviewColors = @{
 function Get-PreviewListing {
     # Direct children of a folder, cached for the lifetime of one preview.
     param($S, [string]$Folder)
-    if ($S.Listing.ContainsKey($Folder)) { return $S.Listing[$Folder] }
+    if ($S.Listing.ContainsKey($Folder)) { return , $S.Listing[$Folder] }
     $list = New-Object System.Collections.Generic.List[object]
     $abs = ConvertTo-AbsPath $Folder
     if ([System.IO.Directory]::Exists($abs)) {
@@ -36,7 +36,7 @@ function Get-PreviewListing {
         catch { }
     }
     $S.Listing[$Folder] = $list
-    return $list
+    return , $list
 }
 
 function Get-PreviewPrimaryItem {
@@ -198,7 +198,7 @@ function Get-PreviewRows {
     }
     $all = New-Object System.Collections.Generic.List[object]
     $stack = New-Object System.Collections.Generic.Stack[object]
-    $sortedTop = & $sortNodes $top
+    $sortedTop = @(& $sortNodes $top)
     for ($i = $sortedTop.Count - 1; $i -ge 0; $i--) { $stack.Push(@{ Node = $sortedTop[$i]; Depth = 0 }) }
     while ($stack.Count -gt 0) {
         $e = $stack.Pop()
@@ -212,7 +212,7 @@ function Get-PreviewRows {
         $all.Add(@{ Kind = 'Node'; Node = $n; Depth = $e.Depth; State = $state; Key = ($state -ne 'Same' -or $hasItem) })
         $k = $n.Path.ToLowerInvariant()
         if ($n.IsFolder -and $children.ContainsKey($k) -and -not $S.CollapsedFolders.Contains($n.Path)) {
-            $sorted = & $sortNodes $children[$k]
+            $sorted = @(& $sortNodes $children[$k])
             for ($i = $sorted.Count - 1; $i -ge 0; $i--) { $stack.Push(@{ Node = $sorted[$i]; Depth = $e.Depth + 1 }) }
         }
     }

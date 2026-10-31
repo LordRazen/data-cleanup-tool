@@ -180,7 +180,8 @@ function Get-UniqueRelPath {
 
 function New-PathSet {
     # Case-insensitive set of relative paths.
-    return (New-Object 'System.Collections.Generic.HashSet[string]' ([System.StringComparer]::OrdinalIgnoreCase))
+    # The comma keeps PowerShell from unrolling the (empty) set into nothing.
+    return , (New-Object 'System.Collections.Generic.HashSet[string]' ([System.StringComparer]::OrdinalIgnoreCase))
 }
 
 function Get-ExtensionKind {
