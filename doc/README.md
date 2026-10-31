@@ -1,6 +1,6 @@
 # Specification
 
-Copied from the project folder `spezifikation-neu` (last sync 2026-10-31). File names keep their hierarchical numbering. Each overview file sits next to the folder that holds its numbered parts:
+Copied from the project folder `spezifikation-neu` on 2026-10-29, last synced on 2026-10-31. File names keep their hierarchical numbering. Each overview file sits next to the folder that holds its numbered parts:
 
 - `1 - Base.md`: base specification
 - `2 - FunctionOverview.md`: overview of functions and buttons
