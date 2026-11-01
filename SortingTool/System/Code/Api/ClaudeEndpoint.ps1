@@ -33,7 +33,8 @@ function Resolve-ClaudeExecutable {
     foreach ($candidate in @(
             (Join-Path $env:USERPROFILE '.local\bin\claude.exe'),
             (Join-Path $env:APPDATA 'npm\claude.cmd'),
-            (Join-Path $env:LOCALAPPDATA 'Programs\claude\claude.exe'))) {
+            (Join-Path $env:LOCALAPPDATA 'Programs\claude\claude.exe'),
+            (Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Links\claude.exe'))) {
         if ($candidate -and [System.IO.File]::Exists($candidate)) { return $candidate }
     }
     return $null
