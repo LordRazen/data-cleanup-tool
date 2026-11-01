@@ -65,7 +65,7 @@ foreach ($day in ($byDay.Keys | Sort-Object)) {
         if (Test-RelExists $target) {
             # Never renamed: a conflicting file stays in Input (2.3 section 4).
             $item = Add-PlanItem -Plan $plan -Action 'MoveFile' -Source $e.Rel -Target $target -Locked $true -AllowSuffix $false `
-                -Conflict 'Name conflict in day folder, file stays in Input' -Info "Konflikt: Im Tagesordner gibt es schon „$($e.Name)“, bleibt in Input" -Extra $extra
+                -Conflict 'Name conflict in day folder, file stays in Input' -Info "Konflikt: Im Tagesordner gibt es schon `„$($e.Name)`“, bleibt in Input" -Extra $extra
         }
         else {
             $item = Add-PlanItem -Plan $plan -Action 'MoveFile' -Source $e.Rel -Target $target -Checked $checked -AllowSuffix $false `

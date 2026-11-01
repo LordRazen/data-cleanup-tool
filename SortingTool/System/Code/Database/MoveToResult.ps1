@@ -143,7 +143,7 @@ $dd.OnSelect = {
             Show-ErrorMessage "Ein neuer Ordner kann höchstens $($dialog.DepthLimit) Ebenen tief in Result liegen. Bitte zuerst einen höheren Ordner wählen."
             return $false
         }
-        $name = Show-TextInput -Prompt "Name des neuen Ordners in „$($parent.FullPath)“:" -Title 'Neuer Ordner'
+        $name = Show-TextInput -Prompt "Name des neuen Ordners in `„$($parent.FullPath)`“:" -Title 'Neuer Ordner'
         if ($null -eq $name) { return $false }
         $name = $name.Trim()
         $reason = Get-InvalidNameReason $name

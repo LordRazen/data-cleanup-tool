@@ -112,7 +112,7 @@ function Invoke-ToolFunction {
     $path = Get-FunctionScriptPath -FunctionDef $FunctionDef -DefaultFolder $DefaultFolder
     $name = [string]$FunctionDef.name
     if (-not (Test-Path -LiteralPath $path)) {
-        Show-ErrorMessage "Das Skript für „$name“ fehlt: $path"
+        Show-ErrorMessage "Das Skript für `„$name`“ fehlt: $path"
         return $false
     }
     $arguments = @{}
@@ -132,7 +132,7 @@ function Invoke-ToolFunction {
     catch {
         $message = $_.Exception.Message
         Write-AppErrorLog -Script $name -Messages @($message, $_.ScriptStackTrace)
-        Show-ErrorMessage "„$name“ ist fehlgeschlagen:`r`n$message"
+        Show-ErrorMessage "`„$name`“ ist fehlgeschlagen:`r`n$message"
         Write-StatusText "Fehler in $name."
         return $false
     }
@@ -146,7 +146,7 @@ function Invoke-ToolFunction {
             try { return (Invoke-PlanWithPreview -Plan $result) }
             catch {
                 Write-AppErrorLog -Script $name -Messages @($_.Exception.Message, $_.ScriptStackTrace)
-                Show-ErrorMessage "„$name“ ist beim Ausführen fehlgeschlagen:`r`n$($_.Exception.Message)"
+                Show-ErrorMessage "`„$name`“ ist beim Ausführen fehlgeschlagen:`r`n$($_.Exception.Message)"
                 return $false
             }
         }
@@ -166,7 +166,7 @@ function Invoke-ToolFunction {
             return $false
         }
         'Failed' {
-            Show-ErrorMessage "„$name“ ist fehlgeschlagen:`r`n$($result.Message)"
+            Show-ErrorMessage "`„$name`“ ist fehlgeschlagen:`r`n$($result.Message)"
             Write-StatusText "Fehler in $name."
             return $false
         }

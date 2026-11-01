@@ -71,7 +71,7 @@ function Test-ClaudeEndpoint {
     $status = [pscustomobject]@{ Available = $true; Kind = ''; Message = '' }
     if (-not $answer.Success) {
         switch ($answer.ErrorKind) {
-            'NotLoggedIn' { $status = [pscustomobject]@{ Available = $false; Kind = 'NotLoggedIn'; Message = 'Claude ist nicht angemeldet. Starte einmal ‚claude‘ in der Eingabeaufforderung und melde dich an.' } }
+            'NotLoggedIn' { $status = [pscustomobject]@{ Available = $false; Kind = 'NotLoggedIn'; Message = 'Claude ist nicht angemeldet. Starte einmal „claude“ in der Eingabeaufforderung und melde dich an.' } }
             'NotInstalled' { $status = [pscustomobject]@{ Available = $false; Kind = 'NotInstalled'; Message = 'Claude ist nicht installiert. Installiere Claude Code und melde dich einmal mit deinem Konto an.' } }
             'LimitReached' { $status = [pscustomobject]@{ Available = $true; Kind = 'LimitReached'; Message = 'Das Claude-Nutzungslimit ist gerade erreicht.' } }
             default { $status = [pscustomobject]@{ Available = $false; Kind = $answer.ErrorKind; Message = "Claude antwortet nicht: $($answer.Error)" } }

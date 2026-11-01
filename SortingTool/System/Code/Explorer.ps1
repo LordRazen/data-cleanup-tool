@@ -456,7 +456,7 @@ function Invoke-ExplorerRename {
     if ($reason) { Show-ErrorMessage $reason; & $retry $Pane $info.Rel; return }
     $target = Join-RelPath (Get-RelParent $info.Rel) $NewName
     if (-not (Test-RelEqual $target $info.Rel) -and (Test-RelExists $target)) {
-        Show-ErrorMessage "Im selben Ordner gibt es schon einen Eintrag mit dem Namen „$NewName“. Bitte einen anderen Namen eingeben."
+        Show-ErrorMessage "Im selben Ordner gibt es schon einen Eintrag mit dem Namen `„$NewName`“. Bitte einen anderen Namen eingeben."
         & $retry $Pane $info.Rel
         return
     }
@@ -464,7 +464,7 @@ function Invoke-ExplorerRename {
         $oldExt = [System.IO.Path]::GetExtension($oldName)
         $newExt = [System.IO.Path]::GetExtension($NewName)
         if ($oldExt -ne $newExt) {
-            if (-not (Show-YesNo "Die Dateiendung ändert sich von „$oldExt“ zu „$newExt“. Ist das gewollt?")) { & $retry $Pane $info.Rel; return }
+            if (-not (Show-YesNo "Die Dateiendung ändert sich von `„$oldExt`“ zu `„$newExt`“. Ist das gewollt?")) { & $retry $Pane $info.Rel; return }
         }
     }
     $log = New-ActionLog -Group 'Explorer' -Script 'Rename'
@@ -508,7 +508,7 @@ function Invoke-ExplorerMove {
             if (Test-RelEqual (Get-RelParent $rel) $TargetFolder) { continue }   # already there
             $isFolder = Test-RelIsFolder $rel
             if ($isFolder -and (Test-RelUnderOrEqual $TargetFolder $rel)) {
-                $messages.Add("„$(Get-RelName $rel)“ kann nicht in sich selbst oder einen Unterordner verschoben werden.")
+                $messages.Add("`„$(Get-RelName $rel)`“ kann nicht in sich selbst oder einen Unterordner verschoben werden.")
                 continue
             }
             $target = Join-RelPath $TargetFolder (Get-RelName $rel)
@@ -516,13 +516,13 @@ function Invoke-ExplorerMove {
                 if ($isFolder) { $final = Move-FolderTracked -Source $rel -Target $target -Log $log -AllowSuffix }
                 else { $final = Move-FileTracked -Source $rel -Target $target -Log $log -AllowSuffix }
                 if (-not (Test-RelEqual (Get-RelName $final) (Get-RelName $rel))) {
-                    $messages.Add("„$(Get-RelName $rel)“ heißt am Ziel „$(Get-RelName $final)“.")
+                    $messages.Add("`„$(Get-RelName $rel)`“ heißt am Ziel `„$(Get-RelName $final)`“.")
                 }
                 $parents.Add((Get-RelParent $rel))
             }
             catch {
                 Add-LogStep -Log $log -Type 'ERROR' -Old $rel -New $target -Extra $_.Exception.Message
-                $messages.Add("Fehler bei „$(Get-RelName $rel)“: $($_.Exception.Message)")
+                $messages.Add("Fehler bei `„$(Get-RelName $rel)`“: $($_.Exception.Message)")
             }
         }
         [void](Remove-EmptyInputFolders -Candidates $parents -Log $log)
