@@ -6,3 +6,5 @@ Sortierwerkzeug für eine Datensammlung auf einer externen Platte (Windows, Powe
 - Spezifikation: [`doc/`](doc/) (Wurzel: `1 - Base.md`)
 - Annahmen beim Bau: [`doc/BuildAssumptions.md`](doc/BuildAssumptions.md)
 - Offene Fragen und Kritikpunkte: [`doc/OpenQuestions.md`](doc/OpenQuestions.md)
+
+TEST
