@@ -167,7 +167,11 @@ function New-ExplorerPane {
         })
     $listButton.Add_Click({ Set-ExplorerView $this.Tag 'List' })
     $folderButton.Add_Click({ Set-ExplorerView $this.Tag 'Folder' })
-    $refresh.Add_Click({ Update-Explorer })
+    $refresh.Add_Click({
+            Update-Explorer
+            # Visible sign that the click worked, even when nothing changed on disk.
+            Write-StatusText "Explorer aktualisiert um $((Get-Date).ToString('HH:mm:ss'))."
+        })
 
     $list.Add_DoubleClick({
             $p = $this.Tag
@@ -429,7 +433,15 @@ function Update-ExplorerThumbnails {
 function Update-Explorer {
     # Reads both areas again (button "Aktualisieren", F5, after every action).
     if (-not $global:ST.Explorer) { return }
-    foreach ($pane in $global:ST.Explorer.Values) { Update-ExplorerPane $pane }
+    foreach ($pane in $global:ST.Explorer.Values) {
+        try { Update-ExplorerPane $pane }
+        catch {
+            # Errors in event handlers are otherwise lost (no console window), so show and log them.
+            try { $pane.List.EndUpdate() } catch { }
+            Write-AppErrorLog -Script 'Explorer' -Messages @($_.Exception.Message, $_.ScriptStackTrace)
+            Show-ErrorMessage "Der Bereich $($pane.Root) konnte nicht aktualisiert werden: $($_.Exception.Message)"
+        }
+    }
 }
 
 function Invoke-ExplorerRename {
